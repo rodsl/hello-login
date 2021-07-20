@@ -4,33 +4,25 @@ const usuariosController = require("../controller/usuariosController");
 
 router.get("/", function (req, res, next) {
   const { session } = req;
+  const todosOsUsuariosCadastrados = usuariosController.listarTodos();
   const estouLogadoCorretamente = !!session.userId;
-  res.render("index", { title: "Express", session, estouLogadoCorretamente });
+  res.render("index", { title: "Express", session, estouLogadoCorretamente, todosOsUsuariosCadastrados });
 });
 
 router.post("/", function (req, res, next) {
   const { nome, email, senha, confirma } = req.body;
+
   const { id: userId } = usuariosController.cadastrar({
     nome,
     email,
     senha,
     confirma,
   });
+
   const { session } = req;
   session.userId = userId;
 
-  const estouLogadoCorretamente = !!session.userId;
-  res.render("index", {
-    title: "Express",
-    usuario: {
-      userId,
-      nome,
-      email,
-      session,
-      sessionId: session.id,
-      estouLogadoCorretamente,
-    },
-  });
+  res.redirect('/');
 });
 
 router.use("/logout", function (req, res, next) {

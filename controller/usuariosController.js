@@ -9,3 +9,6 @@ exports.cadastrar = ({ nome, email, senha, confirma }) => {
   const hashed = bcryptjs.hashSync(senha);
   return usuariosModel.novoUsuario({ nome, email, hashed });
 };
+
+
+exports.listarTodos = () => usuariosModel.listarTodos();
