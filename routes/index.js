@@ -6,7 +6,7 @@ router.get("/", function (req, res, next) {
   const { session } = req;
   const todosOsUsuariosCadastrados = usuariosController.listarTodos();
   const estouLogadoCorretamente = !!session.userId;
-  res.render("index", { title: "Express", session, estouLogadoCorretamente, todosOsUsuariosCadastrados });
+  res.render("index", { title: "Express - Rodrigo Lima", session, estouLogadoCorretamente, todosOsUsuariosCadastrados });
 });
 
 router.post("/", function (req, res, next) {
