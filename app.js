@@ -21,6 +21,39 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({ secret: Math.random().toString(36).slice(-10) }));
 
+
+const { log } = console;
+
+app.use((req, res, next) => {
+  log(`VerboHttp: ${req.method}, VersaoHttp: ${req.httpVersion}, Caminho: ${req.path}, Ip: ${req.ip}`);
+  next();
+});
+
+app.use('/', (req, res, next) => {
+  log(`VerboHttp: ${req.method}, VersaoHttp: ${req.httpVersion}, Caminho: ${req.path}, Ip: ${req.ip}`);
+  next();
+});
+
+app.use('/financeiro', (req, res, next) => {
+  log(`O ip ${req.ip} esta fazendo alguma operação financeiro`);
+  next();
+});
+
+app.delete('/financeiro', (req, res, next) => {
+  log(`WARNING: Alguem deletou um registro do financeiro`);
+
+  if (req.ip !== '200.150.122.366') {
+    throw new Error("voce não esta autorizado a fazer isso");
+  }
+
+  next();
+});
+
+app.use('/financeiro/compra/banana', (req, res) => {
+  log(`O ip ${req.ip} esta fazendo alguma operação financeiro`);
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
