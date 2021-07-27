@@ -14,6 +14,13 @@
       <input type="submit" value="Enviar" />
     </form>
 
+    <form method="POST" action="/login" >
+      Login<br />
+      Email: <input type="text" name="email" required /><br />
+      Senha: <input type="password" name="senha" required /><br />
+      <input type="submit" value="Enviar" />
+    </form>
+
     <pre><%=JSON.stringify(locals, null, 2)%></pre>
 
     <a href="/logout">Sair</a>
