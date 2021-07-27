@@ -4,6 +4,13 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      function fazerLogin(email, senha) {
+        // chamar axios
+        // pegar resultado
+        // fazer alert
+      }
+    </script>
   </head>
   <body>
     <form method="POST" >
@@ -23,13 +30,19 @@
     </form>
 
 
+    <!-- Form para receber email e senha e um botao -->
+    <!-- Chamar a funcao acima para processar o login -->
+
     <pre>
       Fazer um novo form para o login da api, usar axios.
 
+      Breakout room: fazer login
+
+      Desafio: criar um novo usuario, login e logout.
     </pre>
 
     <pre><%=JSON.stringify(locals, null, 2)%></pre>
-    
+
 
     <a href="/logout">Sair</a>
   </body>
