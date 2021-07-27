@@ -3,6 +3,7 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <form method="POST" >
@@ -21,7 +22,14 @@
       <input type="submit" value="Enviar" />
     </form>
 
+
+    <pre>
+      Fazer um novo form para o login da api, usar axios.
+
+    </pre>
+
     <pre><%=JSON.stringify(locals, null, 2)%></pre>
+    
 
     <a href="/logout">Sair</a>
   </body>
