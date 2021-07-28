@@ -6,6 +6,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
       function fazerLogin(email, senha) {
+        alert(`${email} ${senha}`);
         // chamar axios
         // pegar resultado
         // fazer alert
@@ -13,37 +14,46 @@
     </script>
   </head>
   <body>
-    <form method="POST" >
-      Dados do usuário<br />
-      Nome: <input type="text" name="nome" /><br />
-      Email: <input type="text" name="email" /><br />
-      Senha: <input type="password" name="senha" /><br />
-      Confirma: <input type="password" name="confirma" /><br />
-      <input type="submit" value="Enviar" />
-    </form>
+    <h1>LOGIN VIA API</h1>
 
     <form method="POST" action="/login" >
       Login<br />
-      Email: <input type="text" name="email" required /><br />
-      Senha: <input type="password" name="senha" required /><br />
-      <input type="submit" value="Enviar" />
+      Email: <input type="text" name="email" id="email" required /><br />
+      Senha: <input type="password" name="senha" id="senha" required /><br />
+      <input type="button" value="Enviar" onclick="fazerLogin(window.email.value, window.senha.value)" />
     </form>
 
+    <div style="display: none">
+      <form method="POST" >
+        Dados do usuário<br />
+        Nome: <input type="text" name="nome" /><br />
+        Email: <input type="text" name="email" /><br />
+        Senha: <input type="password" name="senha" /><br />
+        Confirma: <input type="password" name="confirma" /><br />
+        <input type="submit" value="Enviar" />
+      </form>
 
-    <!-- Form para receber email e senha e um botao -->
-    <!-- Chamar a funcao acima para processar o login -->
-
-    <pre>
-      Fazer um novo form para o login da api, usar axios.
-
-      Breakout room: fazer login
-
-      Desafio: criar um novo usuario, login e logout.
-    </pre>
-
-    <pre><%=JSON.stringify(locals, null, 2)%></pre>
+      <form method="POST" action="/login" >
+        Login<br />
+        Email: <input type="text" name="email" required /><br />
+        Senha: <input type="password" name="senha" required /><br />
+        <input type="submit" value="Enviar" />
+      </form>
 
 
-    <a href="/logout">Sair</a>
+      <!-- Form para receber email e senha e um botao -->
+      <!-- Chamar a funcao acima para processar o login -->
+
+      <pre>
+        Fazer um novo form para o login da api, usar axios.
+
+        Breakout room: fazer login
+
+        Desafio: criar um novo usuario, login e logout.
+      </pre>
+      <pre><%=JSON.stringify(locals, null, 2)%></pre>
+
+      <a href="/logout">Sair</a>
+    </div>
   </body>
 </html>
