@@ -20,10 +20,10 @@ router.get("/", function (req, res, next) {
 // http://localhost:3000/api/login?email=exemplo@contoso.com&senha=12345678
 
 usuariosController.cadastrar({
-  nome: 'nome',
-  email: 'exemplo@contoso.com',
-  senha: '12345678',
-  confirma: '12345678',
+  nome: "nome",
+  email: "exemplo@contoso.com",
+  senha: "12345678",
+  confirma: "12345678",
 });
 
 router.post("/", function (req, res, next) {
@@ -42,6 +42,22 @@ router.post("/", function (req, res, next) {
   res.redirect("/");
 });
 
+router.post("/api/cadastrar", function (req, res, next) {
+  const { nome, email, senha, confirma } = req.body;
+
+  const { id: userId } = usuariosController.cadastrar({
+    nome,
+    email,
+    senha,
+    confirma,
+  });
+
+  const { session } = req;
+  session.userId = userId;
+
+  res.json({ userId });
+});
+
 router.post("/login", function (req, res, next) {
   const { email, senha } = req.body;
   const { id: userId } = usuariosController.efetuarLogin({ email, senha });
@@ -52,21 +68,20 @@ router.post("/login", function (req, res, next) {
 router.get("/api/login", function (req, res, next) {
   const { email, senha } = req.query;
   const { id: userId } = usuariosController.efetuarLogin({ email, senha });
-  
+
   res.json({ userId });
 });
 
 const { log } = console;
 
-var jwt = require('jsonwebtoken');
-
+var jwt = require("jsonwebtoken");
 
 if (process.argv.length === 5) {
   const [node, script, command] = process.argv;
-  
+
   usuariosModel.recuperar();
 
-  if (command === 'cadastrar') {
+  if (command === "cadastrar") {
     const email = process.argv[3];
     const senha = process.argv[4];
 
@@ -78,9 +93,9 @@ if (process.argv.length === 5) {
         confirma: senha,
       });
       usuariosModel.salvar();
-      
+
       log(`Você se cadastrou com sucesso`);
-    } catch(error){
+    } catch (error) {
       log(error.message);
       process.exit(1);
     }
@@ -88,16 +103,15 @@ if (process.argv.length === 5) {
     process.exit(0);
   }
 
-
-  if (command === 'login') {
+  if (command === "login") {
     const email = process.argv[3];
     const senha = process.argv[4];
 
     try {
       const { id: userId } = usuariosController.efetuarLogin({ email, senha });
-      var token = jwt.sign({ userId }, '12345678');
+      var token = jwt.sign({ userId }, "12345678");
       log(`Você se logou como ${userId}, seu token: ${token}`);
-    } catch(error){
+    } catch (error) {
       log(error.message);
       process.exit(1);
     }
@@ -105,31 +119,37 @@ if (process.argv.length === 5) {
     process.exit(0);
   }
 
-  if (command === 'buscar') {
-    const token = process.argv[3];    
+  if (command === "buscar") {
+    const token = process.argv[3];
     const email = process.argv[4];
 
     try {
-      const token = jwt.verify(token, '12345678');
+      const token = jwt.verify(token, "12345678");
       const { userId } = token;
       log(`Você se logou como ${userId}, seu token: ${token}`);
 
-      usuariosModel.buscarPorEmail({ email });      
-    } catch(error){
+      usuariosModel.buscarPorEmail({ email });
+    } catch (error) {
       log(error.message);
       process.exit(1);
     }
 
     process.exit(0);
-  }  
+  }
 }
-
 
 router.post("/logout", function (req, res, next) {
   const { session } = req;
   delete session.userId;
 
   res.redirect("/");
+});
+
+router.post("/api/logout", function (req, res, next) {
+  const { session } = req;
+  delete session.userId;
+
+  res.json({ result: "ok" });
 });
 
 module.exports = router;

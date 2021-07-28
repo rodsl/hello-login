@@ -5,23 +5,67 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
+      function fazerCadastro(nome, email, senha, confirma) {
+        alert(JSON.stringify({nome, email, senha, confirma}, null, 2));
+        /**
+         * /api/login
+         */
+      }
+
       function fazerLogin(email, senha) {
-        alert(`${email} ${senha}`);
-        // chamar axios
-        // pegar resultado
-        // fazer alert
+        alert(`Login: ${email} ${senha}`);
+
+        axios.get('/api/login', { params: {email, senha}}).then(results => {
+          const { data } = results;
+          alert(JSON.stringify(data, null, 2));
+        }).catch(error => {          
+          alert(error.message);
+        });
+      }
+
+      function fazerLogout() {
+        alert('logout');
+        /**
+         * /api/logout
+         */
+
+      }
+
+      async function fazerLogin2(email, senha) {
+        alert(`Login2: ${email} ${senha}`);
+
+        try {
+          const results = await axios.get('/api/login', { params: {email, senha }});
+          const { data } = results;
+
+          alert(JSON.stringify(data, null, 2));
+        } catch(error) {
+          alert(error.message);
+        }
       }
     </script>
   </head>
   <body>
-    <h1>LOGIN VIA API</h1>
+    <h1>CADASTRO VIA API</h1>
+    Login<br />
+    Nome: <input type="text" id="nome1" /><br />      
+    Email: <input type="text" id="email1" required /><br />
+    Senha: <input type="password" id="senha1" required /><br />
+    Confirma: <input type="password" id="confirma1" /><br />
+    <input type="button" value="Cadastrar" onclick="fazerCadastro(
+      window.nome1.value,
+       window.email1.value,
+        window.senha1.value,
+         window.confirma1.value)" />
 
-    <form method="POST" action="/login" >
-      Login<br />
-      Email: <input type="text" name="email" id="email" required /><br />
-      Senha: <input type="password" name="senha" id="senha" required /><br />
-      <input type="button" value="Enviar" onclick="fazerLogin(window.email.value, window.senha.value)" />
-    </form>
+    <h1>LOGIN VIA API</h1>
+    Login<br />
+    Email: <input type="text" id="email" required /><br />
+    Senha: <input type="password" id="senha" required /><br />
+    <input type="button" value="Enviar" onclick="fazerLogin2(window.email.value, window.senha.value)" />
+
+    <h1>LOGOUT VIA API</h1>
+    <input type="button" value="Enviar" onclick="fazerLogout()" />
 
     <div style="display: none">
       <form method="POST" >
