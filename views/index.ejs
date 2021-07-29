@@ -2,18 +2,29 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-      function fazerLogin(email, senha) {
-        // chamar axios
-        // pegar resultado
-        // fazer alert
+      async function fazerLogin(email, senha) {
+        try {
+          const response = await axios.get("/api/login", {
+            params: {
+              email: email,
+              senha: senha,
+            },
+          });
+          console.log(response);
+          const { userId } = response.data;
+          alert(`Login efetuado com sucesso! userId: ${userId}`)
+        } catch (error) {
+          alert(error.message)
+        }
+
       }
     </script>
   </head>
   <body>
-    <form method="POST" >
+    <form method="POST">
       Dados do usuário<br />
       Nome: <input type="text" name="nome" /><br />
       Email: <input type="text" name="email" /><br />
@@ -22,15 +33,22 @@
       <input type="submit" value="Enviar" />
     </form>
 
-    <form method="POST" action="/login" >
+    <form method="POST" action="/login">
       Login<br />
       Email: <input type="text" name="email" required /><br />
       Senha: <input type="password" name="senha" required /><br />
       <input type="submit" value="Enviar" />
     </form>
 
-
     <!-- Form para receber email e senha e um botao -->
+    <h3>Login via Axios</h3>
+    <form action="Javascript:fazerLogin(email.value, senha.value)">
+      <label for="email">Email:</label>
+      <input type="text" id="email" />
+      <label for="senha">Senha:</label>
+      <input type="password" id="senha" />
+      <button>Enviar</button>
+    </form>
     <!-- Chamar a funcao acima para processar o login -->
 
     <pre>
@@ -42,7 +60,6 @@
     </pre>
 
     <pre><%=JSON.stringify(locals, null, 2)%></pre>
-
 
     <a href="/logout">Sair</a>
   </body>

@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const logger = require('morgan');
+const axios = require("axios")
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
