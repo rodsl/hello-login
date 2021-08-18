@@ -1,103 +1,100 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script>
-      function fazerCadastro(nome, email, senha, confirma) {
-        alert(JSON.stringify({nome, email, senha, confirma}, null, 2));
-        /**
-         * /api/login
-         */
+
+    <!-- Bootstrap core CSS -->
+    <% include config/imports.ejs %>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
       }
 
-      function fazerLogin(email, senha) {
-        alert(`Login: ${email} ${senha}`);
-
-        axios.get('/api/login', { params: {email, senha}}).then(results => {
-          const { data } = results;
-          alert(JSON.stringify(data, null, 2));
-        }).catch(error => {          
-          alert(error.message);
-        });
-      }
-
-      function fazerLogout() {
-        alert('logout');
-        /**
-         * /api/logout
-         */
-
-      }
-
-      async function fazerLogin2(email, senha) {
-        alert(`Login2: ${email} ${senha}`);
-
-        try {
-          const results = await axios.get('/api/login', { params: {email, senha }});
-          const { data } = results;
-
-          alert(JSON.stringify(data, null, 2));
-        } catch(error) {
-          alert(error.message);
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
         }
       }
-    </script>
+    </style>
   </head>
   <body>
-    <h1>CADASTRO VIA API</h1>
-    Login<br />
-    Nome: <input type="text" id="nome1" /><br />      
-    Email: <input type="text" id="email1" required /><br />
-    Senha: <input type="password" id="senha1" required /><br />
-    Confirma: <input type="password" id="confirma1" /><br />
-    <input type="button" value="Cadastrar" onclick="fazerCadastro(
-      window.nome1.value,
-       window.email1.value,
-        window.senha1.value,
-         window.confirma1.value)" />
+    <main>
+      <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+          <a
+            href="/"
+            class="d-flex align-items-center text-dark text-decoration-none"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              fill="currentColor"
+              class="bi bi-grid-1x2-fill me-2"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M0 1a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm9 0a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1V1zm0 9a1 1 0 0 1 1-1h5a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-5z"
+              />
+            </svg>
 
-    <h1>LOGIN VIA API</h1>
-    Login<br />
-    Email: <input type="text" id="email" required /><br />
-    Senha: <input type="password" id="senha" required /><br />
-    <input type="button" value="Enviar" onclick="fazerLogin2(window.email.value, window.senha.value)" />
+            <span class="fs-4">DH School</span>
+          </a>
+        </header>
 
-    <h1>LOGOUT VIA API</h1>
-    <input type="button" value="Enviar" onclick="fazerLogout()" />
+        <div class="p-5 mb-4 bg-light rounded-3">
+          <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">Bem vindo ao ERP da DH School</h1>
+            <p class="col-md-8 fs-4">
+              Neste sistema, você poderá consultar os dados dos alunos, professores e turmas da nossa escola.
+            </p>
+            <button class="btn btn-primary btn-lg" type="button">
+              Vamos lá
+            </button>
+          </div>
+        </div>
 
-    <div style="display: none">
-      <form method="POST" >
-        Dados do usuário<br />
-        Nome: <input type="text" name="nome" /><br />
-        Email: <input type="text" name="email" /><br />
-        Senha: <input type="password" name="senha" /><br />
-        Confirma: <input type="password" name="confirma" /><br />
-        <input type="submit" value="Enviar" />
-      </form>
+        <!-- <div class="row align-items-md-stretch">
+          <div class="col-md-6">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+              <h2>Change the background</h2>
+              <p>
+                Swap the background-color utility and add a `.text-*` color
+                utility to mix up the jumbotron look. Then, mix and match with
+                additional component themes and more.
+              </p>
+              <button class="btn btn-outline-light" type="button">
+                Example button
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="h-100 p-5 bg-light border rounded-3">
+              <h2>Add borders</h2>
+              <p>
+                Or, keep it light and add a border for some added definition to
+                the boundaries of your content. Be sure to look under the hood
+                at the source HTML here as we've adjusted the alignment and
+                sizing of both column's content for equal-height.
+              </p>
+              <button class="btn btn-outline-secondary" type="button">
+                Example button
+              </button>
+            </div>
+          </div>
+        </div> -->
 
-      <form method="POST" action="/login" >
-        Login<br />
-        Email: <input type="text" name="email" required /><br />
-        Senha: <input type="password" name="senha" required /><br />
-        <input type="submit" value="Enviar" />
-      </form>
-
-
-      <!-- Form para receber email e senha e um botao -->
-      <!-- Chamar a funcao acima para processar o login -->
-
-      <pre>
-        Fazer um novo form para o login da api, usar axios.
-
-        Breakout room: fazer login
-
-        Desafio: criar um novo usuario, login e logout.
-      </pre>
-      <pre><%=JSON.stringify(locals, null, 2)%></pre>
-
-      <a href="/logout">Sair</a>
-    </div>
+        <footer class="pt-3 mt-4 text-muted border-top">&copy; 2021 | Crafted by 👨‍💻rodsl_dev</footer>
+      </div>
+    </main>
+    <% include config/scripts.ejs %>
   </body>
 </html>
